@@ -8,6 +8,7 @@
   "globals": {
     "__DEV__": true
   },
+  "plugins": ["react-hooks"],
   "rules": {
     "max-len": [
       1,
@@ -62,7 +63,9 @@
           "^app\/.+$"
         ]
       }
-    ]
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "import/core-modules": [
