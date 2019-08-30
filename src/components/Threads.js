@@ -7,8 +7,8 @@ import AppContext from 'app/src/contexts/AppContext';
 import Thread from 'app/src/components/Thread';
 
 const Threads = () => {
-  const { state } = useContext(AppContext);
-  const [opacity] = useState(new Animated.Value(0));
+  const { store } = useContext(AppContext);
+  const [opacity] = useState(new Animated.Value(1));
 
   const animate = () => {
     Animated.timing(
@@ -16,12 +16,12 @@ const Threads = () => {
     ).start();
   };
 
-  useEffect(() => { animate(); }, []);
+  useEffect(() => { animate(); });
 
   return (
     <Animated.View style={{ opacity }}>
       <FlatList
-        data={state.threads}
+        data={store.getState().threads}
         renderItem={({ item }) => (
           <Thread thread={item} />
         )}

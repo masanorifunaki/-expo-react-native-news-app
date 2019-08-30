@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useReducer } from 'react';
-import {
-  View,
-} from 'react-native';
+import React, {
+  useState, useEffect,
+} from 'react';
+import { View } from 'react-native';
+import { createStore } from 'redux';
 
 import { FETCH_THREADS } from 'app/src/actions';
 import AppContext from 'app/src/contexts/AppContext';
@@ -10,20 +11,18 @@ import reducer from 'app/src/reducers';
 import Spring from 'app/src/components/Spring';
 import Threads from 'app/src/components/Threads';
 
+// eslint-disable-next-line no-underscore-dangle
+const enhancer = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const store = createStore(reducer, enhancer);
+
 const App = () => {
   const [isLoading, setLoading] = useState(true);
-
-  const initialState = {
-    threads: [],
-  };
-
-  const [state, dispatch] = useReducer(reducer, initialState);
 
   const fetchThreads = async () => {
     const data = await fetch('https://www.reddit.com/r/newsokur/hot.json');
     const jsonData = await data.json();
 
-    await dispatch({
+    await store.dispatch({
       type: FETCH_THREADS,
       threads: jsonData.data.children.map((j) => {
         // eslint-disable-next-line no-param-reassign
@@ -35,7 +34,7 @@ const App = () => {
 
   useEffect(() => {
     fetchThreads().then(() => setLoading(false));
-  }, []);
+  });
 
   return (
     <View
@@ -43,10 +42,10 @@ const App = () => {
         flex: 1, justifyContent: 'center', alignItems: 'center',
       }}
     >
-      {isLoading && state.threads.length === 0
+      {isLoading && store.getState().threads.length === 0
         ? <Spring />
         : (
-          <AppContext.Provider value={{ state, dispatch }}>
+          <AppContext.Provider value={{ store }}>
             <Threads />
           </AppContext.Provider>
         )}
