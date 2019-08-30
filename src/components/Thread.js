@@ -23,7 +23,7 @@ const Thread = ({ thread }) => {
 
   const storeData = async (data) => {
     try {
-      await AsyncStorage.setItem(Constants.manifest.extra.asyncStorageKey, JSON.stringify(data), null);
+      await AsyncStorage.setItem(data.key, JSON.stringify(data), null);
     } catch (e) {
       await console.warn(e);
     }
