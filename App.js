@@ -34,7 +34,8 @@ const App = () => {
 
   useEffect(() => {
     fetchThreads().then(() => setLoading(false));
-  });
+    return () => false;
+  }, []);
 
   return (
     <View
