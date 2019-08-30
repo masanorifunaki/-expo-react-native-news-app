@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Animated, Dimensions, Image, Text, View,
+  Animated,
+  Dimensions,
+  Image,
+  Text,
+  View,
+  Button,
+  AsyncStorage,
 } from 'react-native';
+import Constants from 'expo-constants';
 
 const Thread = ({ thread }) => {
   const { width } = Dimensions.get('window');
@@ -14,7 +21,15 @@ const Thread = ({ thread }) => {
     ).start();
   };
 
-  useEffect(() => { animate(); }, []);
+  const storeData = async (data) => {
+    try {
+      await AsyncStorage.setItem(Constants.manifest.extra.asyncStorageKey, JSON.stringify(data), null);
+    } catch (e) {
+      await console.warn(e);
+    }
+  };
+
+  useEffect(() => { animate(); });
 
   return (
     <View style={{
@@ -48,6 +63,7 @@ const Thread = ({ thread }) => {
           >
             {thread.data.domain}
           </Text>
+          <Button onPress={() => { storeData(thread); }} title="ストック" />
         </View>
       </View>
     </View>
