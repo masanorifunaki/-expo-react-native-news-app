@@ -8,13 +8,6 @@ import {
 import Thread from 'app/src/components/Thread';
 
 const Archive = () => {
-  const navigationOptions = {
-    title: 'ストックした記事',
-    headerTintColor: 'white',
-    headerBackTitleStyle: { color: 'white' },
-    headerStyle: { backgroundColor: '#00aced' },
-  };
-
   const [savedThreads, setSavedThreads] = useState([]);
 
   const fetchSavedThreads = async () => {

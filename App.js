@@ -1,12 +1,14 @@
-import React, { useEffect, useReducer, useState } from 'react';
-import { View } from 'react-native';
+import React, {
+  useEffect, useReducer, useState,
+} from 'react';
+import { View, StatusBar } from 'react-native';
 
 import { FETCH_THREADS } from 'app/src/actions';
 import AppContext from 'app/src/contexts/AppContext';
 import reducer from 'app/src/reducers';
 
-import Spring  from 'app/src/components/Spring';
-import Threads from 'app/src/components/Threads';
+import Spring from 'app/src/components/Spring';
+import AppNavigation from 'app/src/navigations/AppNavigation';
 
 const App = () => {
   const [isLoading, setLoading] = useState(true);
@@ -59,7 +61,8 @@ const App = () => {
       dispatch,
     }}
     >
-      <Threads />
+      <StatusBar barStyle="light-content" />
+      <AppNavigation />
     </AppContext.Provider>
   );
 };
