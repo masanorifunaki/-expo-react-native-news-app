@@ -8,7 +8,6 @@ import {
   Button,
   AsyncStorage,
 } from 'react-native';
-import Constants from 'expo-constants';
 
 const Thread = ({ thread }) => {
   const { width } = Dimensions.get('window');

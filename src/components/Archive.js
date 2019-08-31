@@ -1,59 +1,47 @@
 import React, {
-  useContext, useEffect, useState,
+  useEffect, useState,
 } from 'react';
 import {
-  View, AsyncStorage, FlatList, ActivityIndicator,
+  ActivityIndicator, AsyncStorage, FlatList,
 } from 'react-native';
-
-import AppContext from 'app/src/contexts/AppContext';
-import { FETCH_SAVED_THREADS } from 'app/src/actions';
 
 import Thread from 'app/src/components/Thread';
 
 const Archive = () => {
-  const navigationOptions = {
-    title: 'ストックした記事',
-    headerTintColor: 'white',
-    headerBackTitleStyle: { color: 'white' },
-    headerStyle: { backgroundColor: '#00aced' },
-  };
-
-  const { store } = useContext(AppContext);
-  const [isLoading, setLoading] = useState(true);
+  const [savedThreads, setSavedThreads] = useState([]);
 
   const fetchSavedThreads = async () => {
-    const keys = await AsyncStorage.getAllKeys();
-    await AsyncStorage.multiGet(keys, async (err, data) => {
-      const savedThreads = await data.map((i) => JSON.parse(i[1]));
-      await store.dispatch({
-        type: FETCH_SAVED_THREADS,
-        savedThreads,
-      });
-    });
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      const storageData = await AsyncStorage.multiGet(keys, null);
+      const parsedData = await storageData.map((i) => JSON.parse(i[1]));
+      setSavedThreads(parsedData);
+    } catch (e) {
+      console.warn(e);
+    }
   };
 
   useEffect(() => {
-    fetchSavedThreads().then(() => setLoading(false));
-    return () => false;
-  });
+    const promise = async () => {
+      console.log('ArchiveComponents!!!');
+      await fetchSavedThreads();
+    };
+    promise();
+  }, []);
+
+  if (setSavedThreads.length === 0) {
+    return (
+      <ActivityIndicator />
+    );
+  }
 
   return (
-    <View
-      style={{
-        flex: 1, justifyContent: 'center', alignItems: 'center',
-      }}
-    >
-      {isLoading && store.getState().savedThreads.length === 0
-        ? <ActivityIndicator />
-        : (
-          <FlatList
-            data={store.getState().savedThreads}
-            renderItem={({ item }) => (
-              <Thread thread={item} />
-            )}
-          />
-        )}
-    </View>
+    <FlatList
+      data={savedThreads}
+      renderItem={({ item }) => (
+        <Thread thread={item} />
+      )}
+    />
   );
 };
 

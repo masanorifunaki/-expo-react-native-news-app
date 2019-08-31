@@ -1,28 +1,28 @@
 import React, {
-  useState, useEffect,
+  useEffect, useReducer, useState,
 } from 'react';
-import { View } from 'react-native';
-import { createStore } from 'redux';
+import { View, StatusBar } from 'react-native';
 
 import { FETCH_THREADS } from 'app/src/actions';
 import AppContext from 'app/src/contexts/AppContext';
 import reducer from 'app/src/reducers';
 
 import Spring from 'app/src/components/Spring';
-import Threads from 'app/src/components/Threads';
-
-// eslint-disable-next-line no-underscore-dangle
-const enhancer = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-const store = createStore(reducer, enhancer);
+import AppNavigation from 'app/src/navigations/AppNavigation';
 
 const App = () => {
   const [isLoading, setLoading] = useState(true);
+  const initialState = {
+    threads: [],
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const fetchThreads = async () => {
     const data = await fetch('https://www.reddit.com/r/newsokur/hot.json');
     const jsonData = await data.json();
 
-    await store.dispatch({
+    await dispatch({
       type: FETCH_THREADS,
       threads: jsonData.data.children.map((j) => {
         // eslint-disable-next-line no-param-reassign
@@ -33,24 +33,37 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchThreads().then(() => setLoading(false));
-    return () => false;
+    const promise = async () => {
+      console.log('AppComponents!!!!');
+      await fetchThreads();
+      await setLoading(false);
+    };
+    promise();
   }, []);
 
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Spring />
+      </View>
+    );
+  }
+
   return (
-    <View
-      style={{
-        flex: 1, justifyContent: 'center', alignItems: 'center',
-      }}
+    <AppContext.Provider value={{
+      state,
+      dispatch,
+    }}
     >
-      {isLoading && store.getState().threads.length === 0
-        ? <Spring />
-        : (
-          <AppContext.Provider value={{ store }}>
-            <Threads />
-          </AppContext.Provider>
-        )}
-    </View>
+      <StatusBar barStyle="light-content" />
+      <AppNavigation />
+    </AppContext.Provider>
   );
 };
 
