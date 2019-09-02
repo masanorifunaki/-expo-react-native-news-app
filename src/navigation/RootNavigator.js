@@ -7,12 +7,16 @@ import {
 
 import { Icon } from 'react-native-elements';
 
-import TagList from 'app/src/screens/TagList';
+import TagListScreen from 'app/src/screens/TagListScreen';
+import TagSubscriberScreen from 'app/src/screens/TagSubscriberScreen';
 
 const TagNavigation = createStackNavigator(
   {
     TagList: {
-      screen: TagList,
+      screen: TagListScreen,
+    },
+    TagSubscriber: {
+      screen: TagSubscriberScreen,
     },
   },
 );
