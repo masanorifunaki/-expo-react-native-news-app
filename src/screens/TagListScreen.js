@@ -16,7 +16,8 @@ class TagListScreen extends React.Component {
   });
 
   render() {
-    return <TagList />;
+    const { navigation } = this.props;
+    return <TagList navigation={navigation} />;
   }
 }
 
