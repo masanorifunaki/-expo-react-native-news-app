@@ -10,6 +10,7 @@ import { Icon } from 'react-native-elements';
 import TagListScreen from 'app/src/screens/TagListScreen';
 import TagSubscriberScreen from 'app/src/screens/TagSubscriberScreen';
 import TagPageListScreen from 'app/src/screens/TagPageListScreen';
+import WebViewPageScreen from 'app/src/screens/WebViewPageScreen';
 
 const TagNavigation = createStackNavigator(
   {
@@ -21,6 +22,9 @@ const TagNavigation = createStackNavigator(
     },
     TagSubscriber: {
       screen: TagSubscriberScreen,
+    },
+    WebViewPage: {
+      screen: WebViewPageScreen,
     },
   },
 );
