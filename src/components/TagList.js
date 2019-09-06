@@ -9,7 +9,7 @@ import { ListItem } from 'react-native-elements';
 
 import AppContext from 'app/src/contexts/AppContext';
 
-const TagList = () => {
+const TagList = ({ navigation }) => {
   const { state } = useContext(AppContext);
   const [isLoading, setLoading] = useState(true);
 
@@ -46,6 +46,7 @@ const TagList = () => {
       data={state.savedTags}
       renderItem={({ item }) => (
         <ListItem
+          onPress={() => navigation.navigate('TagPageList', { tag: item.id })}
           key={item.id}
           title={item.id}
           leftAvatar={{ source: { uri: item.icon_url } }}
