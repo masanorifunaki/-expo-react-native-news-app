@@ -5,7 +5,8 @@ import { QIITA_ACSESS_TOKNE } from 'react-native-dotenv';
 
 const API_ENDPOINT = 'https://qiita.com/api/v2/items';
 
-const TagPageList = ({ tag }) => {
+const TagPageList = ({ navigation }) => {
+  const [tag] = useState(navigation.getParam('tag'));
   const [articles, setArticles] = useState([]);
 
   const fetchArticles = async (page, tag) => {
@@ -30,6 +31,7 @@ const TagPageList = ({ tag }) => {
       data={articles}
       renderItem={({ item }) => (
         <ListItem
+          onPress={() => { navigation.navigate('WebViewPage', { url: item.url }); }}
           key={item.id}
           title={item.title}
           leftAvatar={{ source: { uri: item.user.profile_image_url } }}
