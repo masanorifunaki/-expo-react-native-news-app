@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
-import { ListItem } from 'react-native-elements';
 import { QIITA_ACSESS_TOKNE } from 'react-native-dotenv';
+
+import Article from 'app/src/elements/Article';
 
 const API_ENDPOINT = 'https://qiita.com/api/v2/items';
 
@@ -30,13 +31,7 @@ const KeywordPageList = ({ navigation }) => {
     <FlatList
       data={articles}
       renderItem={({ item }) => (
-        <ListItem
-          onPress={() => { navigation.navigate('WebViewPage', { url: item.url, title: item.title }); }}
-          key={item.id}
-          title={item.title}
-          leftAvatar={{ source: { uri: item.user.profile_image_url } }}
-          subtitle={item.user.name}
-        />
+        <Article item={item} navigation={navigation} />
       )}
       keyExtractor={(item) => item.id}
     />
