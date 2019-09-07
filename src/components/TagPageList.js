@@ -31,7 +31,7 @@ const TagPageList = ({ navigation }) => {
       data={articles}
       renderItem={({ item }) => (
         <ListItem
-          onPress={() => { navigation.navigate('WebViewPage', { url: item.url }); }}
+          onPress={() => { navigation.navigate('WebViewPage', { url: item.url, title: item.title }); }}
           key={item.id}
           title={item.title}
           leftAvatar={{ source: { uri: item.user.profile_image_url } }}

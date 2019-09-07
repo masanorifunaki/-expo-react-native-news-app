@@ -19,15 +19,31 @@ const TagNavigation = createStackNavigator(
   {
     TagList: {
       screen: TagListScreen,
+      navigationOptions: {
+        title: '登録済みのタグ',
+      },
     },
     TagPageList: {
       screen: TagPageListScreen,
     },
     TagSubscriber: {
       screen: TagSubscriberScreen,
+      navigationOptions: {
+        title: '新しいタグを登録',
+      },
     },
     WebViewPage: {
       screen: WebViewPageScreen,
+    },
+  },
+  {
+    defaultNavigationOptions: {
+      headerBackTitle: null,
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#55c401',
+        color: '#fff',
+      },
     },
   },
 );
@@ -36,15 +52,31 @@ const KeywordNavigation = createStackNavigator(
   {
     KeywordList: {
       screen: KeywordListScreen,
+      navigationOptions: {
+        title: '登録済みのキーワード',
+      },
     },
     KeywordPageList: {
       screen: KeywordPageListScreen,
     },
     KeywordForm: {
       screen: KeywordFormScreen,
+      navigationOptions: {
+        title: '新しいキーワードを登録',
+      },
     },
     WebViewPage: {
       screen: WebViewPageScreen,
+    },
+  },
+  {
+    defaultNavigationOptions: {
+      headerBackTitle: null,
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#55c401',
+        color: '#fff',
+      },
     },
   },
 );
