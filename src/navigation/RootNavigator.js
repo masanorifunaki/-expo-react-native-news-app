@@ -11,6 +11,9 @@ import TagListScreen from 'app/src/screens/TagListScreen';
 import TagSubscriberScreen from 'app/src/screens/TagSubscriberScreen';
 import TagPageListScreen from 'app/src/screens/TagPageListScreen';
 import WebViewPageScreen from 'app/src/screens/WebViewPageScreen';
+import KeywordListScreen from 'app/src/screens/KeywordListScreen';
+import KeywordFormScreen from 'app/src/screens/KeywordFormScreen';
+import KeywordPageListScreen from 'app/src/screens/KeywordPageListScreen';
 
 const TagNavigation = createStackNavigator(
   {
@@ -29,6 +32,23 @@ const TagNavigation = createStackNavigator(
   },
 );
 
+const KeywordNavigation = createStackNavigator(
+  {
+    KeywordList: {
+      screen: KeywordListScreen,
+    },
+    KeywordPageList: {
+      screen: KeywordPageListScreen,
+    },
+    KeywordForm: {
+      screen: KeywordFormScreen,
+    },
+    WebViewPage: {
+      screen: WebViewPageScreen,
+    },
+  },
+);
+
 const RootNavigator = createBottomTabNavigator({
   TagNavigation: {
     screen: TagNavigation,
@@ -37,6 +57,16 @@ const RootNavigator = createBottomTabNavigator({
       tabBarLabel: 'タグ',
       tabBarIcon: ({ tintColor, focused }) => (
         <Icon name="label" />
+      ),
+    },
+  },
+  KeywordNavigation: {
+    screen: KeywordNavigation,
+    navigationOptions: {
+      title: 'Keyword',
+      tabBarLabel: 'キーワード',
+      tabBarIcon: ({ tintColor, focused }) => (
+        <Icon name="room" />
       ),
     },
   },

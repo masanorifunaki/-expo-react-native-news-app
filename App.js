@@ -9,6 +9,7 @@ import RootNavigator from 'app/src/navigation/RootNavigator';
 const App = () => {
   const initialSate = {
     savedTags: [],
+    savedKeywords: [],
   };
 
   const [state, dispatch] = useReducer(reducer, initialSate);
