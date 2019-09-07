@@ -13,6 +13,7 @@ import TagPageListScreen from 'app/src/screens/TagPageListScreen';
 import WebViewPageScreen from 'app/src/screens/WebViewPageScreen';
 import KeywordListScreen from 'app/src/screens/KeywordListScreen';
 import KeywordFormScreen from 'app/src/screens/KeywordFormScreen';
+import KeywordPageListScreen from 'app/src/screens/KeywordPageListScreen';
 
 const TagNavigation = createStackNavigator(
   {
@@ -35,6 +36,9 @@ const KeywordNavigation = createStackNavigator(
   {
     KeywordList: {
       screen: KeywordListScreen,
+    },
+    KeywordPageList: {
+      screen: KeywordPageListScreen,
     },
     KeywordForm: {
       screen: KeywordFormScreen,
