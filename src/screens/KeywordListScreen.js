@@ -16,7 +16,8 @@ class KeywordListScreen extends React.Component {
   });
 
   render() {
-    return <KeywordList />;
+    const { navigation } = this.props;
+    return <KeywordList navigation={navigation} />;
   }
 }
 

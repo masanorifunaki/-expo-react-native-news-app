@@ -13,7 +13,7 @@ import { ListItem } from 'react-native-elements';
 
 import AppContext from 'app/src/contexts/AppContext';
 
-const KeywordList = () => {
+const KeywordList = ({ navigation }) => {
   const { state } = useContext(AppContext);
   const [isLoading, setLoading] = useState(true);
 
@@ -46,6 +46,7 @@ const KeywordList = () => {
       data={state.savedKeywords}
       renderItem={({ item }) => (
         <ListItem
+          onPress={() => navigation.navigate('KeywordPageList', { keyword: item })}
           key={item}
           title={item}
         />
